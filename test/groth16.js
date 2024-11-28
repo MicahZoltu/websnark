@@ -1,5 +1,6 @@
 
 const assert = require("assert");
+const { describe, it } = require("node:test")
 const fs = require("fs");
 const path = require("path");
 const snarkjs = require("snarkjs");
@@ -49,7 +50,7 @@ describe("Basic tests for groth16 proof generator", () => {
 
     });
 
-    it("It should do a basic point doubling G1", async () => {
+    it("It should do a basic point doubling G1", { timeout: 10000000 }, async () => {
         const groth16 = await buildGroth16();
 
         const signals = fs.readFileSync(path.join(__dirname, "data", "witness.bin"));
@@ -63,6 +64,6 @@ describe("Basic tests for groth16 proof generator", () => {
         assert(snarkjs.groth.isValid(verifierKey, proof, pub));
 
         groth16.terminate();
-    }).timeout(10000000);
+    });
 
 });

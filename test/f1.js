@@ -1,4 +1,5 @@
 const assert = require("assert");
+const { describe, it } = require("node:test")
 const bigInt = require("big-integer");
 
 const buildF1 = require("../index.js").buildF1;
@@ -341,7 +342,7 @@ describe("Basic tests for Zq", () => {
             }
         }
     });
-    it("It should do a test", async () => {
+    it("It should do a test", { timeout: 10000000 }, async () => {
         const q = bigInt("21888242871839275222246405745257275088548364400416034343698204186575808495617");
         const f1 = await buildF1(q);
 
@@ -349,7 +350,7 @@ describe("Basic tests for Zq", () => {
 
         console.log(t);
 
-    }).timeout(10000000);
+    });
     it("Should test to montgomery", async () => {
         const q = bigInt("21888242871839275222246405745257275088548364400416034343698204186575808495617");
         const f1 = await buildF1(q);
@@ -487,7 +488,7 @@ describe("Basic tests for Zq", () => {
     });
 
 
-    it("It should profile int", async () => {
+    it("It should profile int", { timeout: 10000000 }, async () => {
 
         let start,end,time;
 
@@ -536,6 +537,6 @@ describe("Basic tests for Zq", () => {
 
         console.log("Mul Old Time (ms): " + time);
 
-    }).timeout(10000000);
+    });
 
 });

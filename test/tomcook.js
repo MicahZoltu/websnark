@@ -1,4 +1,5 @@
 const assert = require("assert");
+const { describe, it, beforeEach } = require("node:test")
 const bigInt = require("big-integer");
 
 const buildProtoboard = require("../src/protoboard.js");
@@ -14,7 +15,7 @@ describe("Basic tests for Tom Cook Multiplication Strategy", () => {
     let pbTC;
     let pbInt;
 
-    before(async () => {
+    beforeEach(async () => {
         pbTC = await buildProtoboard((module) => {
             buildTomCook(module);
             buildTest(module, "tomcook_mul9");
@@ -149,7 +150,7 @@ describe("Basic tests for Tom Cook Multiplication Strategy", () => {
     });
 
 
-    it("It should profile school", async () => {
+    it("It should profile school", { timeout: 10000000 }, async () => {
         const A = bigInt.one.shiftLeft(254).minus(1);
         const B = bigInt.one.shiftLeft(254).minus(1);
 
@@ -167,8 +168,8 @@ describe("Basic tests for Tom Cook Multiplication Strategy", () => {
         console.log("Refere: " + A.times(B).toString(16));
 
         console.log("Tom School (ms): " + time);
-    }).timeout(10000000);
-    it("It should profile tomCook", async () => {
+    });
+    it("It should profile tomCook", { timeout: 10000000 }, async () => {
         let start, end, time;
 //        const A = bigInt.one.shiftLeft(29*3).minus(1);
         const A = bigInt.one.shiftLeft(254).minus(1);
@@ -197,6 +198,6 @@ describe("Basic tests for Tom Cook Multiplication Strategy", () => {
         console.log("Refere: " + A.times(B).toString(16));
 
         console.log("Mul9 Tom Cook Time (ms): " + time);
-    }).timeout(10000000);
+    });
 
 });

@@ -1,4 +1,5 @@
 const assert = require("assert");
+const { describe, it, beforeEach } = require("node:test")
 const bigInt = require("big-integer");
 
 const buildProtoboard = require("../src/protoboard.js");
@@ -11,7 +12,7 @@ const helpers = require("./helpers/helpers.js");
 describe("Basic tests for Int", () => {
     let pbInt;
 
-    before(async () => {
+    beforeEach(async () => {
         pbInt = await buildProtoboard((module) => {
             buildInt(module, 4);
             buildTest(module, "int_mul");
@@ -45,7 +46,7 @@ describe("Basic tests for Int", () => {
         }
     });
 
-    it("It should profile int", async () => {
+    it("It should profile int", { timeout: 10000000 }, async () => {
 
         const pA = pbInt.alloc();
         const pB = pbInt.alloc();
@@ -79,6 +80,6 @@ describe("Basic tests for Int", () => {
 
         console.log("Mul Old Time (ms): " + time);
 
-    }).timeout(10000000);
+    });
 
 });

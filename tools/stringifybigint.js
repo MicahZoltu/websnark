@@ -57,7 +57,7 @@ function unstringifyBigInts(o) {
 }
 
 function hexifyBigInts(o) {
-    if (typeof (o) === "bigInt" || (o instanceof bigInt)) {
+    if (typeof (o) === "bigint" || (o instanceof bigInt)) {
         let str = o.toString(16);
         while (str.length < 64) str = "0" + str;
         str = "0x" + str;

@@ -1,27 +1,24 @@
 const {unstringifyBigInts} = require("./stringifybigint.js");
 const fs = require("fs");
 const assert = require("assert");
+const process = require("node:process")
 
-const version = require("../package").version;
+var argv = require('minimist')(process.argv.slice(2), { boolean: ['h', 'help'] });
+if (argv.help || argv.h) {
+    console.log(`node buildpkey.js -i "witness.json" -o "witness.bin"
+-i --input default: witness.json
+-o --output default: witness.bin
+-h --help
 
-const argv = require("yargs")
-    .version(version)
-    .usage(`node buildpkey.js -i "witness.json" -o "witness.bin"
-  Default: circuit.json
-        `)
-    .alias("i", "input")
-    .alias("o", "output")
-    .help("h")
-    .alias("h", "help")
-    .epilogue(`Copyright (C) 2018  0kims association
-    This program comes with ABSOLUTELY NO WARRANTY;
-    This is free software, and you are welcome to redistribute it
-    under certain conditions; see the COPYING file in the official
-    repo directory at  https://github.com/iden3/circom `)
-    .argv;
+Copyright (C) 2018  0kims association
+This program comes with ABSOLUTELY NO WARRANTY;
+This is free software, and you are welcome to redistribute it under certain conditions;
+see the COPYING file in the official repo directory at  https://github.com/iden3/circom`)
+    process.exit()
+}
 
-const inputName = (argv.input) ? argv.input : "witness.json";
-const outputName = (argv.output) ? argv.output : "witness.bin";
+const inputName = argv.input || argv.i || "witness.json";
+const outputName = argv.output || argv.o || "witness.bin";
 
 
 const witness = unstringifyBigInts(JSON.parse(fs.readFileSync(inputName, "utf8")));

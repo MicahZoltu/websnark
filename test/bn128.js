@@ -1,4 +1,5 @@
-const assert = require("assert");
+const assert = require("node:assert");
+const { describe, it } = require("node:test")
 const refBn128 = require("snarkjs").bn128;
 const refBigInt = require("snarkjs").bigInt;
 
@@ -78,14 +79,14 @@ describe("Basic tests for g1 in bn128", () => {
 
         assert(bn128.g1_isZero(p1));
     });
-    it("It should do a test", async () => {
+    it("It should do a test", { timeout: 10000000 }, async () => {
         const bn128 = await buildBn128();
 
         const t = bn128.test_AddG1(100000);
 
         console.log(t);
-    }).timeout(10000000);
-    it("It should validate the test", async () => {
+    })
+    it("It should validate the test", { timeout: 10000000 }, async () => {
         const bn128 = await buildBn128();
         const refD = refBn128.G1.mulScalar(refBn128.g1, 100000);
 
@@ -102,7 +103,7 @@ describe("Basic tests for g1 in bn128", () => {
 
         assert(refBn128.G1.equals(d, refD));
 
-    }).timeout(10000000);
+    });
     it("It should do a basic point doubling in G2", async () => {
         const bn128 = await buildBn128();
         const refD = refBn128.G2.double(refBn128.g2);

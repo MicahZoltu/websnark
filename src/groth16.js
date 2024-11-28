@@ -20,7 +20,6 @@
 /* globals WebAssembly, Blob, Worker, navigator, Promise, window */
 const bigInt = require("big-integer");
 const groth16_wasm = require("../build/groth16_wasm.js");
-const assert = require("assert");
 
 const inBrowser = (typeof window !== "undefined");
 let NodeWorker;
@@ -267,7 +266,7 @@ class Groth16 {
     }
 
     postAction(workerId, e, transfers, _deferred) {
-        assert(this.working[workerId] == false);
+        if (!(this.working[workerId] == false)) throw new Error(`Expected 'this.working[workerId] == false' but this.working[workerId] was ${this.working[workerId]}`);
         this.working[workerId] = true;
 
         this.pendingDeferreds[workerId] = _deferred ? _deferred : new Deferred();

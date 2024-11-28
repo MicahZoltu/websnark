@@ -1,4 +1,5 @@
 const assert = require("assert");
+const { describe, it } = require("node:test")
 const refBn128 = require("snarkjs").bn128;
 const refBigInt = require("snarkjs").bigInt;
 
